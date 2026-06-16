@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あなたに合った方法で、強みを見つけよう｜ツヨミホルン</title>
+    <style>
+        /* 全体のリセットと基本スタイリング */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #333333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 背景のスタイリッシュな幾何学装飾 */
+        body::before {
+            content: "";
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 40%;
+            height: 40%;
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            transform: rotate(-15deg);
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::after {
+            content: "";
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(106, 90, 205, 0.05) 100%);
+            transform: rotate(15deg);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ヘッダーエリア（左右ロゴと中央に学校名） */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px 20px 60px;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* 左右のロゴ設定 */
+        .logo-left img {
+            height: 150px;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* 背景色に自然に透過・融合 */
+        }
+        .logo-right img {
+            height: 180px;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* 背景色に自然に透過・融合 */
+        }
+
+        /* 中央の学校名エリア（位置調整とサイズ拡大） */
+        .school-title {
+            flex: 1;
+            text-align: center;
+            font-size: 1.6rem; /* テキストサイズを大きめに変更 */
+            font-weight: 700;
+            color: #212d40;
+            letter-spacing: 0.25em; /* スタイリッシュに文字間隔を確保 */
+            padding: 0 20px;
+            white-space: nowrap;
+        }
+
+        /* メインコンテンツエリア */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px 40px 20px;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* タイトルエリア */
+        .title-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .sub-title {
+            font-size: 1.2rem;
+            color: #555555;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .main-title {
+            font-size: 2.4rem;
+            color: #0f2547;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        /* タイトル下のスタイリッシュなライン */
+        .main-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 2px;
+        }
+
+        /* テキスト：ツヨミホルンの虹色グラデーション */
+        .rainbow-text {
+            font-weight: 700;
+            background: linear-gradient(90deg, #e63946, #f4a261, #2a9d8f, #457b9d, #1d3557, #6a0dad);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* ツール選択用画像エリア */
+        .tool-selection-container {
+            width: 100%;
+            max-width: 1000px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            margin-bottom: 35px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tool-selection-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 画像マップ用のレスポンス対応ラッパー */
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .map-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* クリッカブルエリア設定 */
+        .clickable-area {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border-radius: 12px;
+        }
+        .clickable-area:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .area-tool1 { left: 2%; width: 31%; }
+        .area-tool2 { left: 34.5%; width: 31%; }
+        .area-tool3 { left: 67%; width: 31%; }
+
+        /* 中間の案内テキスト */
+        .footer-info {
+            text-align: center;
+            font-size: 1.05rem;
+            color: #444444;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            margin-bottom: 20px;
+        }
+
+        /* フッターエリア（コピーライト） */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 0.1em;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        /* スマホ・タブレット対応 */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column; /* 狭い画面では縦並びにして崩れを防ぐ */
+                padding: 20px;
+                gap: 15px;
+            }
+            .logo-left img { height: 70px; }
+            .logo-right img { height: 80px; }
+            .school-title { font-size: 1.3rem; padding: 5px 0; }
+            .main-title { font-size: 1.7rem; }
+            .sub-title { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー：左右のロゴマークとその中央に学校名を配置 -->
+    <header>
+        <div class="logo-left">
+            <!-- 新しい左上ロゴリンク（KOKUZOロゴ） -->
+            <img src="https://github.com/t3takahashit3-cell/matsukawaputop/blob/main/kokuzologo.png?raw=true" alt="KOKUZO Logo">
+        </div>
+        
+        <!-- 中央に移動した学校名 -->
+        <div class="school-title">
+            長野県松川高等学校
+        </div>
+        
+        <div class="logo-right">
+            <!-- 新しい右上ロゴリンク（ホルンロゴ） -->
+            <img src="https://github.com/t3takahashit3-cell/matsukawaputop/blob/main/holnlogo.png?raw=true" alt="ツヨミホルン Logo">
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- タイトルエリア -->
+        <div class="title-container">
+            <div class="sub-title">＼ 3つのツールで、あなたらしい自己PRをつくろう ／</div>
+            <h1 class="main-title">あなたに合った方法で、<span class="rainbow-text">強み</span>を見つけよう</h1>
+        </div>
+
+        <!-- ツール選択（画像＆リンクエリア） -->
+        <div class="tool-selection-container">
+            <div class="map-wrapper">
+                <img src="https://github.com/t3takahashit3-cell/matsukawaputop/blob/main/toolsentaku.png?raw=true" alt="ツール選択画面">
+                
+                <!-- 別ウィンドウで開く設定リンク -->
+                <a href="https://t3takahashit3-cell.github.io/matsukawapr3/" target="_blank" rel="noopener noreferrer" class="clickable-area area-tool1" title="TOOL 01 を使ってみる"></a>
+                <a href="https://t3takahashit3-cell.github.io/matsukawapr2/" target="_blank" rel="noopener noreferrer" class="clickable-area area-tool2" title="TOOL 02 を使ってみる"></a>
+                <a href="https://t3takahashit3-cell.github.io/matsukawayowami/" target="_blank" rel="noopener noreferrer" class="clickable-area area-tool3" title="TOOL 03 を使ってみる"></a>
+            </div>
+        </div>
+
+        <!-- 案内テキスト -->
+        <div class="footer-info">
+            ＼ どのツールから始めてもOK！ あとから他のツールも使えます ／
+        </div>
+    </main>
+
+    <!-- フッター部分：コピーライト -->
+    <footer>
+        ©KOKUZO
+    </footer>
+
+</body>
+</html>
