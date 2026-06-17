@@ -3,624 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>強みを深掘る「ツヨミホルン」</title>
+    <title>あなたに合った方法で、強みを見つけよう｜ツヨミホルン</title>
     <style>
-        /* 全体のデザイン（温かみのあるポップなスタイル） */
+        /* 全体のリセットと基本スタイリング */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #FFF9E6; /* 温かみのある薄い黄色 */
-            color: #4A3B32; /* 優しいダークブラウン */
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #333333;
             min-height: 100vh;
-        }
-
-        .container {
-            background-color: #FFFFFF;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(218, 180, 140, 0.3);
-            padding: 30px;
-            max-width: 620px;
-            width: 100%;
-            border: 3px solid #FFD3B6; /* パステルオレンジの枠線 */
-        }
-
-        h1 {
-            text-align: center;
-            color: #FF8B94; /* ポップなピンク */
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 0px #FFF;
-        }
-
-        .main-img {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto 20px;
-            border-radius: 10px;
-        }
-
-        .step {
-            display: none; /* 基本は非表示 */
-        }
-
-        .step.active {
-            display: block;
-        }
-
-        .instruction {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            background-color: #FFF0F5;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 5px solid #FF8B94;
-        }
-
-        .btn-group, .radio-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .btn {
-            background-color: #FFAAA5; /* 温かみのあるコーラルピンク */
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 0px #DD8B85;
+        /* 背景のスタイリッシュな幾何学装飾 */
+        body::before {
+            content: "";
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 40%;
+            height: 40%;
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            transform: rotate(-15deg);
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::after {
+            content: "";
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(106, 90, 205, 0.05) 100%);
+            transform: rotate(15deg);
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .btn:hover {
-            background-color: #FF8B94;
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(2px);
-            box-shadow: none;
-        }
-
-        .btn-secondary {
-            background-color: #A8E6CF; /* パステルグリーン */
-            box-shadow: 0 4px 0px #85C4AD;
-            color: #4A3B32;
-        }
-        .btn-secondary:hover { background-color: #92D7BD; }
-
-        /* アコーディオンのスタイル */
-        .accordion-container {
-            margin-bottom: 20px;
-        }
-
-        .accordion-header {
-            background-color: #FFEAA7;
-            color: #4A3B32;
-            padding: 12px 15px;
-            font-weight: bold;
-            font-size: 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 10px;
+        /* ヘッダーエリア（左右ロゴと中央に学校名） */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #E6D08C;
-        }
-
-        .accordion-header:hover {
-            background-color: #FFD3B6;
-        }
-
-        .accordion-header::after {
-            content: '▼';
-            font-size: 12px;
-            transition: transform 0.3s;
-        }
-
-        .accordion-header.open::after {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            display: none;
-            background-color: #FFFDF9;
-            padding: 10px;
-            border: 1px solid #FFD3B6;
-            border-top: none;
-            border-radius: 0 0 10px 10px;
-        }
-
-        .keyword-option {
-            display: flex;
-            align-items: center;
-            background-color: #FFFFFF;
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            cursor: pointer;
-            border: 1px solid #EAEAEA;
-        }
-
-        .keyword-option:hover {
-            background-color: #FFF0F5;
-        }
-
-        .keyword-option input {
-            margin-right: 12px;
-            transform: scale(1.2);
-        }
-
-        .keyword-text {
-            font-size: 14px;
-        }
-
-        .keyword-desc {
-            font-size: 12px;
-            color: #777;
-            margin-left: 5px;
-        }
-
-        .sub-label {
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 18px;
-            margin-bottom: 6px;
-            display: block;
-            color: #4A3B32;
-        }
-
-        textarea {
+            padding: 20px 60px 20px 60px;
+            z-index: 10;
             width: 100%;
-            height: 70px;
-            padding: 12px;
-            border-radius: 12px;
-            border: 2px solid #FFD3B6;
-            font-size: 14px;
-            resize: none;
-            box-sizing: border-box;
-            margin-bottom: 5px;
-            font-family: inherit;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #FFAAA5;
-            background-color: #FFFDF9;
-        }
-
-        /* ヒント表示ボックス */
-        .hint-text {
-            background-color: #EDF9E7;
-            padding: 18px;
-            border-radius: 15px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            border-left: 6px solid #7BCD55;
-            font-size: 15px;
-        }
-
-        .hint-quote {
-            background-color: #FFFFFF;
-            border: 1px dashed #7BCD55;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 14px;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        .advice-box {
-            background-color: #FFFEE6;
-            border: 1px solid #E6D08C;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .password-box {
-            background-color: #F0F4F8;
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border: 2px dashed #B0C4DE;
-            text-align: center;
-        }
-
-        .password-box input {
-            padding: 8px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #CCC;
-            width: 120px;
-            text-align: center;
-            margin-right: 10px;
-        }
-
-        .result-box {
-            background-color: #FFF;
-            border: 3px dashed #FF8B94;
-            padding: 22px;
-            border-radius: 15px;
-            margin-top: 15px;
-            line-height: 1.8;
-            white-space: pre-wrap;
-            font-size: 15px;
-            color: #2D2D2D;
-        }
-
-        .counter {
-            text-align: right;
-            font-size: 13px;
-            color: #666;
-            margin-top: 5px;
-            font-weight: bold;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
-        .tip-badge {
+        /* 左右のロゴ設定 */
+        .logo-left img {
+            height: 150px;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* 背景色に自然に透過・融合 */
+        }
+        .logo-right img {
+            height: 180px;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply; /* 背景色に自然に透過・融合 */
+        }
+
+        /* 中央の学校名エリア（位置調整とサイズ拡大） */
+        .school-title {
+            flex: 1;
+            text-align: center;
+            font-size: 1.6rem; /* テキストサイズを大きめに変更 */
+            font-weight: 700;
+            color: #212d40;
+            letter-spacing: 0.25em; /* スタイリッシュに文字間隔を確保 */
+            padding: 0 20px;
+            white-space: nowrap;
+        }
+
+        /* メインコンテンツエリア */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px 40px 20px;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* タイトルエリア */
+        .title-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .sub-title {
+            font-size: 1.2rem;
+            color: #555555;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .main-title {
+            font-size: 2.4rem;
+            color: #0f2547;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
             display: inline-block;
-            background-color: #FF8B94;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 5px;
-            font-size: 11px;
-            margin-bottom: 5px;
+            padding-bottom: 15px;
+        }
+        /* タイトル下のスタイリッシュなライン */
+        .main-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 2px;
+        }
+
+        /* テキスト：ツヨミホルンの虹色グラデーション */
+        .rainbow-text {
+            font-weight: 700;
+            background: linear-gradient(90deg, #e63946, #f4a261, #2a9d8f, #457b9d, #1d3557, #6a0dad);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* ツール選択用画像エリア */
+        .tool-selection-container {
+            width: 100%;
+            max-width: 1000px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 10px;
+            margin-bottom: 35px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tool-selection-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 画像マップ用のレスポンス対応ラッパー */
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .map-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* クリッカブルエリア設定 */
+        .clickable-area {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border-radius: 12px;
+        }
+        .clickable-area:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .area-tool1 { left: 2%; width: 31%; }
+        .area-tool2 { left: 34.5%; width: 31%; }
+        .area-tool3 { left: 67%; width: 31%; }
+
+        /* 中間の案内テキスト */
+        .footer-info {
+            text-align: center;
+            font-size: 1.05rem;
+            color: #444444;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            margin-bottom: 20px;
+        }
+
+        /* フッターエリア（コピーライト） */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 0.1em;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        /* スマホ・タブレット対応 */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column; /* 狭い画面では縦並びにして崩れを防ぐ */
+                padding: 20px;
+                gap: 15px;
+            }
+            .logo-left img { height: 70px; }
+            .logo-right img { height: 80px; }
+            .school-title { font-size: 1.3rem; padding: 5px 0; }
+            .main-title { font-size: 1.7rem; }
+            .sub-title { font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>強みを深掘る「ツヨミホルン」</h1>
-
-    <div id="step1" class="step active">
-        <img src="https://raw.githubusercontent.com/t3takahashit3-cell/matsukawapr2/main/img.png" onerror="this.src='https://github.com/t3takahashit3-cell/matsukawapr2/blob/main/img.png?raw=true'" alt="ツヨミホルン" class="main-img">
-        <div class="instruction">まずは、あなたの今の希望の進路を教えてね！どちらを選んでも、あなたにぴったりの自己PRを一緒に作るよ。</div>
-        <div class="btn-group">
-            <button class="btn" onclick="selectPath('就職')">💼 就職を希望する</button>
-            <button class="btn btn-secondary" onclick="selectPath('進学')">🎓 進学を希望する</button>
+    <!-- ヘッダー：左右のロゴマークとその中央に学校名を配置 -->
+    <header>
+        <div class="logo-left">
+            <!-- 新しい左上ロゴリンク（KOKUZOロゴ） -->
+            <img src="https://github.com/t3takahashit3-cell/matsukawaputop/blob/main/kokuzologo.png?raw=true" alt="KOKUZO Logo">
         </div>
-    </div>
+        
+        <!-- 中央に移動した学校名 -->
+        <div class="school-title">
+            長野県松川高等学校
+        </div>
+        
+        <div class="logo-right">
+            <!-- 新しい右上ロゴリンク（ホルンロゴ） -->
+            <img src="https://github.com/t3takahashit3-cell/matsukawaputop/blob/main/holnlogo.png?raw=true" alt="ツヨミホルン Logo">
+        </div>
+    </header>
 
-    <div id="step2" class="step">
-        <div class="instruction">下の大項目（〜力）をクリックすると、細かい強みが出てくるよ！<br>この中から、あなたが自分の強みだと感じるものを【3つ】選んでください。</div>
-        <div class="accordion-container" id="keyword-accordion">
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- タイトルエリア -->
+        <div class="title-container">
+            <div class="sub-title">＼ 3つのツールで、あなたらしい自己PRをつくろう ／</div>
+            <h1 class="main-title">あなたに合った方法で、<span class="rainbow-text">強み</span>を見つけよう</h1>
+        </div>
+
+        <!-- ツール選択（画像＆リンクエリア） -->
+        <div class="tool-selection-container">
+            <div class="map-wrapper">
+                <img src="https://github.com/t3takahashit3-cell/matsukawaputop/blob/main/toolsentaku.png?raw=true" alt="ツール選択画面">
+                
+                <!-- 別ウィンドウで開く設定リンク -->
+                <a href="https://t3takahashit3-cell.github.io/matsukawapr3/" target="_blank" rel="noopener noreferrer" class="clickable-area area-tool1" title="TOOL 01 を使ってみる"></a>
+                <a href="https://t3takahashit3-cell.github.io/matsukawapr2/" target="_blank" rel="noopener noreferrer" class="clickable-area area-tool2" title="TOOL 02 を使ってみる"></a>
+                <a href="https://t3takahashit3-cell.github.io/matsukawayowami/" target="_blank" rel="noopener noreferrer" class="clickable-area area-tool3" title="TOOL 03 を使ってみる"></a>
             </div>
-        <button class="btn" style="width:100%" onclick="submitKeywords()">3つ選んだので次へすすむ ➔</button>
-    </div>
-
-    <div id="step3" class="step">
-        <div class="instruction">選んでくれた3つの強みはこちら！<br>この中で、強みを証明できるエピソードがあるもの（一番説明しやすいもの）を【1つ】選んでね。</div>
-        <div class="radio-group" id="selected-three-group">
-            </div>
-        <button class="btn" style="width:100%" onclick="submitMainKeyword()">次へすすむ ➔</button>
-    </div>
-
-    <div id="step4" class="step">
-        <div class="instruction">その強みを発揮した出来事は、高校生活のどの「ジャンル」に近いですか？一番近いものを1つ選んでね。</div>
-        <p>💡 <strong>選んだ強み：</strong> <span class="display-main-keyword-text" style="color:#FF8B94; font-weight:bold;"></span></p>
-        <div class="radio-group">
-            <label class="keyword-option"><input type="radio" name="episode-genre" value="部活動"> <span class="keyword-text">🏃‍♂️ <strong>部活動</strong>（日々の練習、大会、マネージャーなど）</span></label>
-            <label class="keyword-option"><input type="radio" name="episode-genre" value="学校行事"> <span class="keyword-text">🎪 <strong>学校行事</strong>（文化祭、体育祭、修学旅行など）</span></label>
-            <label class="keyword-option"><input type="radio" name="episode-genre" value="勉強・授業"> <span class="keyword-text">✏️ <strong>勉強・授業</strong>（日々のテスト勉強、探究学習、資格取得など）</span></label>
-            <label class="keyword-option"><input type="radio" name="episode-genre" value="アルバイト"> <span class="keyword-text">🏪 <strong>アルバイト</strong>（接客、レジ、品出し、調理など）</span></label>
-            <label class="keyword-option"><input type="radio" name="episode-genre" value="日常・その他"> <span class="keyword-text">🏠 <strong>日常・その他</strong>（委員会、ボランティア、趣味、家庭など）</span></label>
         </div>
-        <button class="btn" style="width:100%" onclick="submitGenre()">次へすすむ ➔</button>
-    </div>
 
-    <div id="step4_2" class="step">
-        <div class="instruction">選んだジャンルについて、3つの質問に短い言葉や箇条書きで答えてみよう！これだけで、最高の自己PR文章に変身するよ！</div>
-        <p>💡 <strong>選んだ強み：</strong> <span class="display-main-keyword-text" style="color:#FF8B94; font-weight:bold;"></span> ｜ <strong>ジャンル：</strong> <span id="display-genre" style="color:#7BCD55; font-weight:bold;"></span></p>
-        
-        <span class="sub-label">① 【いつ・どんな場面】のことですか？（状況）</span>
-        <textarea id="input-situation" placeholder="（例）毎日の厳しい練習のとき、文化祭のクラスの出し物を決める話し合い、レジの接客業務"></textarea>
-
-        <span class="sub-label">② その時、あなたなりに【意識した一工夫や声かけ】は何ですか？（行動プロセス）</span>
-        <textarea id="input-action" placeholder="（例）しんどい時こそ誰よりも大きな声を出した、一人ひとりの意見を最後まで否定せずに聞いた"></textarea>
-
-        <span class="sub-label">③ その結果、【どんな良い変化や成果】がありましたか？（結果）</span>
-        <textarea id="input-result" placeholder="（例）チーム全員で最後までやり抜け大会で勝てた、クラス全員が納得する企画が決まり大成功した"></textarea>
-        
-        <button class="btn" style="width:100%" onclick="submitSplitEpisode()">ヒントを見る ➔</button>
-    </div>
-
-    <div id="step5" class="step">
-        <div class="instruction">エピソードを入力してくれてありがとう！あなたの強みがどう活きるか、ヒントをまとめたよ！</div>
-        <div class="hint-text" id="hint-output"></div>
-        
-        <div class="password-box">
-            <p style="margin-top:0; font-weight:bold;">🔒 先生から教えてもらった「パスワード」を入力してね</p>
-            <input type="password" id="pwd-input" placeholder="パスワードを入力">
-            <button class="btn" style="padding: 8px 20px; font-size:14px;" onclick="checkPassword()">解除して自己PRを作る</button>
+        <!-- 案内テキスト -->
+        <div class="footer-info">
+            ＼ どのツールから始めてもOK！ あとから他のツールも使えます ／
         </div>
-    </div>
+    </main>
 
-    <div id="step8" class="step">
-        <div class="instruction">✨ おめでとう！あなたの自己PR文章が完成したよ！ ✨<br>この文章をベースにして、面接や提出書類の準備を進めていこう！</div>
-        <div class="result-box" id="result-output"></div>
-        <div class="counter" id="char-count"></div>
-        <br>
-        <button class="btn btn-secondary" style="width:100%" onclick="location.reload()">もう一度最初からやる</button>
-    </div>
-</div>
-
-<script>
-    // データ構造
-    const data = [
-        { category: "■① 人と協力する力", desc: "周囲の人と良好な関係を築き、協力しながら目標達成を目指す力", skills: [
-            { name: "協調性", detail: "周囲と協力しながら物事を進められる" },
-            { name: "コミュニケーション力", detail: "自分の考えを伝え、相手と意思疎通できる" },
-            { name: "傾聴力", detail: "相手の話を丁寧に聞き、理解しようとする" },
-            { name: "気配り", detail: "周囲の状況に気付き、適切な配慮ができる" },
-            { name: "サポート力", detail: "仲間を支え、チームに貢献できる" }
-        ], contribution: "バラバラになりがちなチームを一つにまとめたり、困っている仲間をフォローして全体の成果を底上げする貢献" },
-        { category: "■② 人を動かす力", desc: "自ら周囲に働きかけ、チームや集団をより良い方向へ導く力", skills: [
-            { name: "リーダーシップ", detail: "目標達成に向けて周囲をまとめられる" },
-            { name: "発信力", detail: "自分の考えや意見を分かりやすく伝えられる" },
-            { name: "巻き込み力", detail: "周囲の協力を得ながら活動を進められる" },
-            { name: "積極性", detail: "自分から進んで行動できる" },
-            { name: "主体性", detail: "指示を待たず、自ら考えて行動できる" }
-        ], contribution: "目標に向かって集団に活気を与え、新しい行動を起こすための原動力として周囲を引っ張る貢献" },
-        { category: "■③ 挑戦する力", desc: "新しいことや困難なことに前向きに取り組み、行動を起こす力", skills: [
-            { name: "挑戦力", detail: "未経験のことにも果敢に取り組める" },
-            { name: "行動力", detail: "思いついたことをすぐに実行に移せる" },
-            { name: "実行力", detail: "計画したことを最後まで実践できる" },
-            { name: "適応力", detail: "新しい環境や変化に対応できる" },
-            { name: "柔軟性", detail: "状況に応じて考え方や行動を変えられる" }
-        ], contribution: "前例のない課題や急な変化に対しても、臆することなくチームの新しい道を切り拓いていく貢献" },
-        { category: "■④ やり抜く力", desc: "目標に向かって粘り強く努力し、最後まで取り組む力", skills: [
-            { name: "責任感", detail: "任されたことを最後までやり遂げる" },
-            { name: "継続力", detail: "コツコツと努力を続けられる" },
-            { name: "忍耐力", detail: "困難な状況でも諦めずに取り組める" },
-            { name: "向上心", detail: "常に成長を目指して努力できる" },
-            { name: "集中力", detail: "一つのことに集中して取り組める" },
-            { name: "誠実さ", detail: "真面目な姿勢で信頼を得られる" },
-            { name: "素直さ", detail: "助言や指摘を受け入れ成長につなげられる" }
-        ], contribution: "困難な状況でも集団の軸として途中で投げ出さず、周囲から絶大な信頼を得る貢献" },
-        { category: "■⑤ 考える力", desc: "状況を分析し、課題を見つけて解決策を考える力", skills: [
-            { name: "計画性", detail: "目標達成までの手順を考えられる" },
-            { name: "分析力", detail: "情報を整理し、原因や傾向を考えられる" },
-            { name: "判断力", detail: "状況に応じて適切な選択ができる" },
-            { name: "課題発見力", detail: "問題や改善点に気付くことができる" },
-            { name: "改善力", detail: "より良い方法を考え実行できる" },
-            { name: "観察力", detail: "周囲の変化や特徴に気付くことができる" }
-        ], contribution: "集団が見落としがちな問題点にいち早く気づき、トラブルを未然に防いだり効率的な進め方を提案する貢献" },
-        { category: "■⑥ 新しい価値を生み出す力", desc: "新しいアイデアを考えたり、興味を持って深く学んだりする力", skills: [
-            { name: "創造力", detail: "新しい発想や作品を生み出せる" },
-            { name: "探究心", detail: "疑問を持ち、深く調べて学べる" },
-            { name: "発想力", detail: "既存の考えにとらわれずアイデアを出せる" },
-            { name: "好奇心", detail: "幅広いことに興味を持って挑戦できる" },
-            { name: "企画力", detail: "アイデアを具体的な計画として形にできる" }
-        ], contribution: "マンネリ化した集団に新しい風を吹き込み、面白い企画や斬新な視点で活動をワクワクするものに変える貢献" }
-    ];
-
-    // ジャンルごとの「裏の課題・ストーリー肉付け用」辞書
-    const genreStories = {
-        "部活動": "目標達成に向けた練習の厳しさや、時にチーム内でモチベーションに差が生まれるという課題",
-        "学校行事": "多様な意見がすれ違ったり、準備活動の中で一人ひとりの熱量にバラつきが出るという集団特有の難しい状況",
-        "勉強・授業": "個人の集中力維持や、探究活動などにおいてグループ内の足並みを揃える難しさ",
-        "アルバイト": "マニュアル通りにいかない場面や、多様なお客様に対して臨機応変かつ誠実な対応が求められる環境",
-        "日常・その他": "地道な継続が求められる場面や、限られた状況下で周囲とスムーズに調整を図る必要性"
-    };
-
-    let appState = {
-        path: '', selectedThree: [], mainKeyword: null, mainCategory: null,
-        genre: '', situation: '', action: '', result: ''
-    };
-
-    // アコーディオン生成
-    const accordionContainer = document.getElementById('keyword-accordion');
-    data.forEach((cat, index) => {
-        const header = document.createElement('div');
-        header.className = 'accordion-header';
-        header.innerText = cat.category;
-        header.onclick = () => toggleAccordion(index);
-        header.id = `accordion-header-${index}`;
-
-        const content = document.createElement('div');
-        content.className = 'accordion-content';
-        content.id = `accordion-content-${index}`;
-
-        cat.skills.forEach(skill => {
-            const label = document.createElement('label');
-            label.className = 'keyword-option';
-            label.innerHTML = `
-                <input type="checkbox" name="keywords" value="${skill.name}" data-detail="${skill.detail}" data-catidx="${index}" onchange="checkLimit(this)">
-                <span class="keyword-text"><strong>${skill.name}</strong></span>
-                <span class="keyword-desc">（${skill.detail}）</span>
-            `;
-            content.appendChild(label);
-        });
-
-        accordionContainer.appendChild(header);
-        accordionContainer.appendChild(content);
-    });
-
-    function toggleAccordion(index) {
-        const content = document.getElementById(`accordion-content-${index}`);
-        const header = document.getElementById(`accordion-header-${index}`);
-        const isOpen = content.style.display === 'block';
-        content.style.display = isOpen ? 'none' : 'block';
-        if (isOpen) header.classList.remove('open');
-        else header.classList.add('open');
-    }
-
-    function checkLimit(checkbox) {
-        const checkedBoxes = document.querySelectorAll('input[name="keywords"]:checked');
-        if (checkedBoxes.length > 3) {
-            alert('選べるキーワードは3つまでだよ！');
-            checkbox.checked = false;
-        }
-    }
-
-    function selectPath(choice) {
-        appState.path = choice;
-        goToStep(2);
-    }
-
-    function submitKeywords() {
-        const checkedBoxes = document.querySelectorAll('input[name="keywords"]:checked');
-        if (checkedBoxes.length !== 3) {
-            alert('あなたの強みを【3つ】選んでね！');
-            return;
-        }
-        
-        appState.selectedThree = [];
-        checkedBoxes.forEach(box => {
-            appState.selectedThree.push({
-                name: box.value, detail: box.getAttribute('data-detail'), catIdx: box.getAttribute('data-catidx')
-            });
-        });
-
-        const radioGroup = document.getElementById('selected-three-group');
-        radioGroup.innerHTML = '';
-        appState.selectedThree.forEach(skill => {
-            const label = document.createElement('label');
-            label.className = 'keyword-option';
-            label.innerHTML = `
-                <input type="radio" name="main-keyword" value="${skill.name}">
-                <span class="keyword-text"><strong>${skill.name}</strong></span>
-            `;
-            radioGroup.appendChild(label);
-        });
-
-        goToStep(3);
-    }
-
-    function submitMainKeyword() {
-        const selectedRadio = document.querySelector('input[name="main-keyword"]:checked');
-        if (!selectedRadio) {
-            alert('エピソードがある強みを1つ選んでね！');
-            return;
-        }
-        appState.mainKeyword = appState.selectedThree.find(s => s.name === selectedRadio.value);
-        appState.mainCategory = data[appState.mainKeyword.catIdx];
-        
-        // 強み表示テキストを更新
-        document.querySelectorAll('.display-main-keyword-text').forEach(el => {
-            el.innerText = appState.mainKeyword.name;
-        });
-        goToStep(4);
-    }
-
-    // STEP 4 ➔ 4-2: ジャンルの決定
-    function submitGenre() {
-        const selectedGenreRadio = document.querySelector('input[name="episode-genre"]:checked');
-        if (!selectedGenreRadio) {
-            alert('エピソードのジャンルを1つ選んでね！');
-            return;
-        }
-        appState.genre = selectedGenreRadio.value;
-        document.getElementById('display-genre').innerText = appState.genre;
-        goToStep("4_2");
-    }
-
-    // STEP 4-2 ➔ 5: 分割入力の受付とヒント生成
-    function submitSplitEpisode() {
-        const sit = document.getElementById('input-situation').value.trim();
-        const act = document.getElementById('input-action').value.trim();
-        const res = document.getElementById('input-result').value.trim();
-        
-        if (sit === "" || act === "" || res === "") {
-            alert('3つの質問すべてに、短い言葉で良いので入力してみてね！');
-            return;
-        }
-        appState.situation = sit;
-        appState.action = act;
-        appState.result = res;
-
-        const name = appState.mainKeyword.name;
-        const contribution = appState.mainCategory.contribution;
-        
-        let hint = `<h3>💖 あなたの強みは集団の中でこう輝くよ！</h3>`;
-        hint += `あなたが選んだ<strong>『${name}』</strong>は、集団の中で<br><span style="color:#D84B6B; font-weight:bold;">「${contribution}」</span>という大きなメリットに繋がります。これは、${appState.path}先でも間違いなく求められる特別な力です！<br><br>`;
-        hint += `入力してくれたパーツ：`;
-        hint += `<div class="hint-quote">`;
-        hint += `🎯 <strong>場面：</strong> ${sit}<br>`;
-        hint += `🏃‍♂️ <strong>行動：</strong> ${act}<br>`;
-        hint += `✨ <strong>結果：</strong> ${res}`;
-        hint += `</div>`;
-        
-        // どこかの入力が非常に短い（抽象的）な場合の個別励まし・アドバイス
-        if (sit.length < 10 || act.length < 10 || res.length < 10) {
-            hint += `<div class="advice-box">`;
-            hint += `<span class="tip-badge">もっと良くなるアドバイス！</span><br>`;
-            hint += `短い言葉でしっかり答えてくれてありがとう！今の内容だけでも素晴らしいけれど、もし「もっと具体的にできそう！」と思ったら、前の画面に戻って以下を少し書き足してみてね：<br>`;
-            hint += `・<strong>行動</strong>：その時、周りの人にどんな「声かけ」を意識した？<br>`;
-            hint += `・<strong>結果</strong>：周りの人からどんな「言葉」をかけてもらえたかな？<br><br>`;
-            hint += `※「これ以上は思い浮かばない…」という場合も大丈夫！アプリが次の画面で、パーツ同士をなめらかに繋いで、高校生トップレベルの完成された自己PRに組み立てておいたよ！`;
-            hint += `</div>`;
-        } else {
-            hint += `<p>✨ 素晴らしい！それぞれのパーツが具体的に書かれているので、あなたが${name}を発揮した様子がありありと伝わってきます。自信を持って進もう！</p>`;
-        }
-
-        document.getElementById('hint-output').innerHTML = hint;
-        goToStep(5);
-    }
-
-    function checkPassword() {
-        const pwd = document.getElementById('pwd-input').value;
-        if (pwd === "0618") {
-            generateSelfPR();
-            goToStep(8);
-        } else {
-            alert('パスワードが違うみたい。もう一度確かめて入力してね！');
-        }
-    }
-
-    // 語尾の「〜しました」「〜です」等を綺麗に削って接続詞に馴染ませるクレンジング処理
-    function cleanInput(text) {
-        return text.replace(/(。|がんばりました|しました|取り組みました|日常|だった|おこないました|なりました)$/g, "");
-    }
-
-    // STEP 8: 完成文の組み立てロジック（ここが「昇華」の核心）
-    function generateSelfPR() {
-        const name = appState.mainKeyword.name;
-        const detail = appState.mainKeyword.detail;
-        
-        const cSit = cleanInput(appState.situation);
-        const cAct = cleanInput(appState.action);
-        const cRes = cleanInput(appState.result);
-        
-        const genreProblem = genreStories[appState.genre];
-
-        let prText = "";
-        
-        if (appState.path === "就職") {
-            // 就職用：200~250字程度に無駄なく凝縮。短い言葉の組み合わせで完璧なロジックを構成。
-            prText = `私の強みは${name}です。集団において、${detail}ことに自信があります。高校時代には、${cSit}の際にこの強みを発揮しました。当時は${genreProblem}もありましたが、私は自ら一歩踏み出し、${cAct}という具体的なアプローチを継続しました。その結果、${cRes}という成果を収め、組織の目標達成に貢献することができました。この経験で培った${name}を活かし、貴社に入社後も周囲の状況に配慮しながら誠実に業務に取り組み、組織の成果に貢献してまいります。`;
-        } else {
-            // 進学用：400字程度。探究の深まりや大学での学習意欲へと高度に繋げる。
-            prText = `私の強みは、${detail}ができる${name}です。周囲の状況や課題に対して、自分に何ができるかを客観的に分析し、集団のために最適な役割を果たすことに自信を持っています。\nこの強みは高校生活の${appState.genre}を通じて培われました。具体的には、${cSit}という経験があります。当時は${genreProblem}に直面し、思い通りに進まない局面もありましたが、私はそこで立ち止まらず、状況を好転させるために${cAct}という具体的な行動に注力しました。自分が軸となり粘り強く働きかけを続けた結果、${cRes}という大きな成果に繋げることができました。この経験を通じて、個々の強みを引き出し、協力し合うことが集団の成果を最大化させるのだと深く学びました。\n貴学に入学した際にも、この${name}を大いに活かしたいと考えています。講義やゼミナール、地域での探究活動において、周囲と良好な関係を築きながら主体的に学びを深めてまいります。`;
-        }
-
-        document.getElementById('result-output').innerText = prText;
-        document.getElementById('char-count').innerText = `現在の文字数: ${prText.length} 文字`;
-    }
-
-    function goToStep(stepNum) {
-        document.querySelectorAll('.step').forEach(step => {
-            step.classList.remove('active');
-        });
-        document.getElementById('step' + stepNum).classList.add('active');
-        window.scrollTo(0, 0);
-    }
-</script>
+    <!-- フッター部分：コピーライト -->
+    <footer>
+        ©KOKUZO
+    </footer>
 
 </body>
 </html>
